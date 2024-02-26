@@ -1,20 +1,13 @@
 import { useState } from 'react';
 import './App.css';
 import Counter from './components/Counter/Counter';
+import TodoList from './components/Todo/TodoList';
 
 function App() {
-  const [number, setNumber] = useState(100)
-
-  const upNumber = () => {
-    setNumber(number + 1)
-  }
-
-  const downNumber = () => {
-    setNumber(number - 1);
-  }
+  
   return (
      <>
-      <Counter value={number} changeNumber={upNumber} downNumber={downNumber}/>
+       <TodoList/>
      </>
   );
 }
