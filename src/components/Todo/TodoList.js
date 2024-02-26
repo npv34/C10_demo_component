@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const data = [
     {
@@ -21,18 +21,44 @@ const data = [
 function  TodoList(props) {
 
     const [tasks, setTasks] = useState(data);
+    const [countTaskDone, setCountTaskDone] = useState(0);
+    const [task, setTask] = useState("")
+
+    useEffect(() => {
+        let tasksDone = tasks.filter(item => item.done == true);
+        setCountTaskDone(tasksDone.length);
+    }, [tasks])
 
     const doneTask = (idx, idTask) => {
         tasks[idx].done = true;
-        // xu ly logic
-        let newData = tasks.filter(item => item.id !== idTask);
-        // set lai state -> components re-render lai
-        setTasks(newData);
+        setTasks([...tasks]);
+        
+    }
+
+    const changeInput  = (evt) => {
+        let value = evt.target.value;
+        setTask(value);
+    }
+
+
+    const addTask = () =>  {
+        let lastTask = tasks[tasks.length - 1];
+    
+        let newTask = {
+            id: lastTask.id + 1,
+            title: task,
+            done: false,
+        }
+        tasks.push(newTask);
+        setTasks([...tasks]);
+        setTask("")
     }
 
         return (
             <>
-                <h2>Todo List</h2>
+                <h2>Todo List: {countTaskDone } (done) / {tasks.length}</h2>
+                <input value={task} onChange={changeInput}/>
+                <button onClick={addTask}>Add</button>
                 <table>
                     <tr>
                         <td>#</td>
@@ -40,13 +66,17 @@ function  TodoList(props) {
                         <td></td>
                     </tr>
                     { tasks.map((task, index) => (
-                        <tr key={index}>
-                            <td>{task.id}</td>
-                            <td>{task.title}</td>
-                            <td>
-                                <button onClick={() => doneTask(index, task.id)} >Done</button>
-                            </td>
-                        </tr>
+                        <>
+                        { !task.done && (
+                            <tr key={index}>
+                                <td>{task.id}</td>
+                                <td>{task.title}</td>
+                                <td>
+                                    <button onClick={() => doneTask(index, task.id)} >Done</button>
+                                </td>
+                            </tr>
+                        )}
+                        </>
                     ))}
                 </table>
                 
