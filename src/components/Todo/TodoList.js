@@ -22,7 +22,7 @@ function  TodoList(props) {
 
     const [tasks, setTasks] = useState(data);
     const [countTaskDone, setCountTaskDone] = useState(0);
-    const [task, setTask] = useState("")
+    const [task, setTask] = useState("");
 
     useEffect(() => {
         let tasksDone = tasks.filter(item => item.done == true);
@@ -32,7 +32,6 @@ function  TodoList(props) {
     const doneTask = (idx, idTask) => {
         tasks[idx].done = true;
         setTasks([...tasks]);
-        
     }
 
     const changeInput  = (evt) => {
@@ -42,6 +41,7 @@ function  TodoList(props) {
 
 
     const addTask = () =>  {
+        
         let lastTask = tasks[tasks.length - 1];
     
         let newTask = {
@@ -51,13 +51,13 @@ function  TodoList(props) {
         }
         tasks.push(newTask);
         setTasks([...tasks]);
-        setTask("")
+        setTask("");
     }
 
         return (
             <>
                 <h2>Todo List: {countTaskDone } (done) / {tasks.length}</h2>
-                <input value={task} onChange={changeInput}/>
+                <input onChange={changeInput}/>
                 <button onClick={addTask}>Add</button>
                 <table>
                     <tr>
