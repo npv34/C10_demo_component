@@ -60,11 +60,14 @@ function  TodoList(props) {
                 <input onChange={changeInput}/>
                 <button onClick={addTask}>Add</button>
                 <table>
+                    <thead>
                     <tr>
                         <td>#</td>
                         <td>Title</td>
                         <td></td>
                     </tr>
+                    </thead>
+                    
                     { tasks.map((task, index) => (
                         <>
                         { !task.done && (

@@ -1,13 +1,22 @@
-import { useState } from 'react';
 import './App.css';
-import Counter from './components/Counter/Counter';
-import TodoList from './components/Todo/TodoList';
+import Weather from './components/Weather/Weather';
+import {Route, Routes} from "react-router-dom";
+import Login from "./components/Login/Login";
+import {useSelector} from "react-redux";
 
 function App() {
-  
-  return (
+    const auth = useSelector(state => state.auth);
+
+    return (
      <>
-       <TodoList/>
+       <Routes>
+           <Route path={"/login"} element={<Login/>} />
+           { auth.isLogin && (
+               <>
+                   <Route path={"/weather"} element={<Weather/>} />
+               </>
+           )}
+       </Routes>
      </>
   );
 }
